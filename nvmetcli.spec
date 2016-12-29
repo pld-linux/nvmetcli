@@ -10,12 +10,12 @@ Source0:	ftp://ftp.infradead.org/pub/nvmetcli/%{name}-%{version}.tar.gz
 URL:		http://git.infradead.org/users/hch/nvmetcli.git
 BuildRequires:	python-devel
 BuildRequires:	python-setuptools
-BuildRequires:	rpmbuild(macros) >= 1.704
+BuildRequires:	rpmbuild(macros) >= 1.714
 BuildRequires:	systemd-units
 Requires(post):	systemd
 Requires(preun):	systemd
 Requires(postun):	systemd
-Requires:	python-configshell
+Requires:	python-configshell-fb
 Requires:	python-kmod
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -42,6 +42,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %py_install
 
+%py_postclean
+
 install -d $RPM_BUILD_ROOT{%{_sbindir},%{_sysconfdir}/nvmet,%{systemdunitdir}}
 cp -p nvmetcli $RPM_BUILD_ROOT%{_sbindir}/nvmetcli
 cp -p nvmet.service $RPM_BUILD_ROOT%{systemdunitdir}/nvmet.service
@@ -62,6 +64,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc README
 %attr(755,root,root) %{_sbindir}/nvmetcli
-%{py_sitescriptdir}
+%{py_sitescriptdir}/nvmet
+%{py_sitescriptdir}/nvmetcli-0.1-py*.egg-info
 %dir %{_sysconfdir}/nvmet
 %{systemdunitdir}/nvmet.service
