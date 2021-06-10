@@ -1,22 +1,24 @@
 Summary:	Command line interface for the kernel NVMe nvmet
 Summary(pl.UTF-8):	Interfejs linii poleceń do modułu jądra NVMe nvmet
 Name:		nvmetcli
-Version:	0.2
+Version:	0.7
 Release:	1
 License:	Apache v2.0
 Group:		Applications/System
 Source0:	ftp://ftp.infradead.org/pub/nvmetcli/%{name}-%{version}.tar.gz
-# Source0-md5:	f7e82fa86001d5caaafffb3eed2cf798
+# Source0-md5:	eed70ef32d327c814345178dd35d088b
 URL:		http://git.infradead.org/users/hch/nvmetcli.git
-BuildRequires:	python-devel
-BuildRequires:	python-setuptools
+BuildRequires:	python3-devel >= 1:3.2
+BuildRequires:	python3-setuptools
 BuildRequires:	rpmbuild(macros) >= 1.714
+BuildRequires:	sed >= 4.0
 BuildRequires:	systemd-units
 Requires(post):	systemd
 Requires(preun):	systemd
 Requires(postun):	systemd
-Requires:	python-configshell-fb
-Requires:	python-kmod
+Requires:	python3-configshell-fb
+Requires:	python3-kmod
+Requires:	python3-six
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -34,15 +36,15 @@ nvmet oraz zapis/odczyt konfiguracji z/do pliku JSON.
 %prep
 %setup -q
 
+%{__sed} -i -e '1s,/usr/bin/python,%{__python3},' nvmetcli
+
 %build
-%py_build
+%py3_build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%py_install
-
-%py_postclean
+%py3_install
 
 install -d $RPM_BUILD_ROOT{%{_sbindir},%{_sysconfdir}/nvmet,%{systemdunitdir}}
 cp -p nvmetcli $RPM_BUILD_ROOT%{_sbindir}/nvmetcli
@@ -64,7 +66,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc README
 %attr(755,root,root) %{_sbindir}/nvmetcli
-%{py_sitescriptdir}/nvmet
-%{py_sitescriptdir}/nvmetcli-0.1-py*.egg-info
+%{py3_sitescriptdir}/nvmet
+%{py3_sitescriptdir}/nvmetcli-%{version}-py*.egg-info
 %dir %{_sysconfdir}/nvmet
 %{systemdunitdir}/nvmet.service
