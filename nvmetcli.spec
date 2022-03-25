@@ -2,7 +2,7 @@ Summary:	Command line interface for the kernel NVMe nvmet
 Summary(pl.UTF-8):	Interfejs linii poleceń do modułu jądra NVMe nvmet
 Name:		nvmetcli
 Version:	0.7
-Release:	2
+Release:	3
 License:	Apache v2.0
 Group:		Applications/System
 Source0:	ftp://ftp.infradead.org/pub/nvmetcli/%{name}-%{version}.tar.gz
