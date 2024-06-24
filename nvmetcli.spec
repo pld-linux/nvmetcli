@@ -1,12 +1,12 @@
 Summary:	Command line interface for the kernel NVMe nvmet
 Summary(pl.UTF-8):	Interfejs linii poleceń do modułu jądra NVMe nvmet
 Name:		nvmetcli
-Version:	0.7
-Release:	3
+Version:	0.8
+Release:	1
 License:	Apache v2.0
 Group:		Applications/System
 Source0:	ftp://ftp.infradead.org/pub/nvmetcli/%{name}-%{version}.tar.gz
-# Source0-md5:	eed70ef32d327c814345178dd35d088b
+# Source0-md5:	52139449e3cbaa8b722333383d4b132e
 URL:		http://git.infradead.org/users/hch/nvmetcli.git
 BuildRequires:	python3-devel >= 1:3.2
 BuildRequires:	python3-setuptools
